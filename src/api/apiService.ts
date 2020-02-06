@@ -17,8 +17,16 @@ class ApiService {
   }
 
   public getOrders(): Promise<AxiosResponse<OrderItem>> {
-    const orders = this.instance.get('/order');
-    return orders;
+    return this.instance.get('/order');
+  }
+
+  public updateOrder(
+    orderId: string,
+    payload: {
+      bagsCount: number;
+    },
+  ): Promise<AxiosResponse<OrderItem>> {
+    return this.instance.put(`/order/${orderId}`, payload);
   }
 }
 

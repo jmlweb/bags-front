@@ -57,6 +57,7 @@ const useApi = () => {
       service,
       data: state.data,
       error: state.error,
+      idle: state.idle,
       loading: !state.idle || (!state.data && !state.error),
     }),
     [makeRequest, service, state],

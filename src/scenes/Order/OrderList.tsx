@@ -23,10 +23,10 @@ const OrderList = () => {
       {(data as OrderItem[]).map(item => (
         <OrderCard
           key={item._id}
+          orderId={`${item._id}`}
           userName={item.user.name}
           userEmail={item.user.email}
           bagsCount={item.bagsCount}
-          editLink={`/order/${item._id}`}
         />
       ))}
       <LinkCard to="/order/create">
