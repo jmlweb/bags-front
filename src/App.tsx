@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createGlobalStyle, ThemeProvider } from '@xstyled/styled-components';
+
+import { MainHeader } from './components';
+import { MainLayout } from './layouts';
+import Scenes from './scenes';
+import theme from './theme';
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    margin: 0;
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+
+  body {
+    font-family: ${theme.fonts.primary};
+    background: ${theme.colors.ground};
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-size: 3;
+  }
+`;
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <>
+        <Router>
+          <MainLayout headerContent={<MainHeader />} bodyContent={<Scenes />} />
+        </Router>
+        <GlobalStyle />
+      </>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
