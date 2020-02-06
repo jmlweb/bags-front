@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createGlobalStyle, ThemeProvider } from '@xstyled/styled-components';
 
+import { ApiProvider } from './api';
 import { MainHeader } from './components';
 import { MainLayout } from './layouts';
 import Scenes from './scenes';
@@ -29,15 +30,24 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  if (!apiUrl) {
+    throw Error('You must supply an envar for REACT_APP_API_URL');
+  }
   return (
-    <ThemeProvider theme={theme}>
-      <>
-        <Router>
-          <MainLayout headerContent={<MainHeader />} bodyContent={<Scenes />} />
-        </Router>
-        <GlobalStyle />
-      </>
-    </ThemeProvider>
+    <ApiProvider url={apiUrl}>
+      <ThemeProvider theme={theme}>
+        <>
+          <Router>
+            <MainLayout
+              headerContent={<MainHeader />}
+              bodyContent={<Scenes />}
+            />
+          </Router>
+          <GlobalStyle />
+        </>
+      </ThemeProvider>
+    </ApiProvider>
   );
 };
 
