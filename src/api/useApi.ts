@@ -2,24 +2,24 @@ import { useReducer, useMemo } from 'react';
 import { AxiosResponse } from 'axios';
 import useApiService from './useApiService';
 
-export interface State {
+export interface State<T> {
   idle: boolean;
-  data?: {}[];
+  data?: T;
   error?: string;
 }
 
-type Action =
+type Action<T> =
   | { type: 'start' }
-  | { type: 'success'; payload: {}[] }
+  | { type: 'success'; payload: T }
   | { type: 'error'; error: string };
 
-const initialState: State = {
+const initialState: State<any> = {
   idle: true,
   data: undefined,
   error: undefined,
 };
 
-const apiReducer = (state: State, action: Action) => {
+const apiReducer = <T>(state: State<T>, action: Action<T>) => {
   switch (action.type) {
     case 'start':
       return { idle: false };
@@ -38,7 +38,7 @@ const useApi = () => {
 
   // This function uses "useMemo" to avoid re-renders
   const makeRequest = useMemo(
-    () => async (serviceCall: Promise<AxiosResponse<any>>) => {
+    () => async <T>(serviceCall: Promise<AxiosResponse<T>>) => {
       dispatch({ type: 'start' });
       try {
         const { data } = await serviceCall;
@@ -55,7 +55,9 @@ const useApi = () => {
     () => ({
       makeRequest,
       service,
-      ...state,
+      data: state.data,
+      error: state.error,
+      loading: !state.idle || (!state.data && !state.error),
     }),
     [makeRequest, service, state],
   );

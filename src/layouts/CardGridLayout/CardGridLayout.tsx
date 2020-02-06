@@ -8,7 +8,7 @@ export interface Props {
 const SGrid = styled.div`
   display: grid;
   grid-gap: 4;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 `;
 
 const CardGridLayout: FC<Props> = ({ children }) => <SGrid>{children}</SGrid>;

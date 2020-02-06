@@ -27,6 +27,13 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: subpixel-antialiased;
     font-size: 3;
   }
+
+  a {
+    color: ${theme.colors.secondary};
+    &:hover {
+      color: ${theme.colors.secondaryBright};
+    }
+  }
 `;
 
 const App = () => {

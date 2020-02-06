@@ -2,15 +2,17 @@ import React, { useEffect } from 'react';
 
 import { useApi } from '../../api';
 import { CardGridLayout } from '../../layouts';
+import { LinkCard, OrderCard } from '../../components';
+import { OrderItem } from '../../typings';
 
 const OrderList = () => {
-  const { service, makeRequest, idle, data, error } = useApi();
+  const { service, makeRequest, loading, data, error } = useApi();
 
   useEffect(() => {
     makeRequest(service.getOrders());
   }, [makeRequest, service]);
 
-  if (!idle) {
+  if (loading) {
     return <div>Loading</div>;
   }
   if (error) {
@@ -18,7 +20,21 @@ const OrderList = () => {
   }
   return (
     <CardGridLayout>
-      <div>{JSON.stringify(data)}</div>
+      {(data as OrderItem[]).map(item => (
+        <OrderCard
+          key={item._id}
+          userName={item.user.name}
+          userEmail={item.user.email}
+          bagsCount={item.bagsCount}
+          editLink={`/order/${item._id}`}
+        />
+      ))}
+      <LinkCard to="/order/create">
+        <span role="img" aria-label="add emoji">
+          ➕
+        </span>{' '}
+        Create Order
+      </LinkCard>
     </CardGridLayout>
   );
 };

@@ -1,6 +1,8 @@
 // TODO: Separate API Service and API Adapter
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
+import { OrderItem } from '../typings';
+
 class ApiService {
   public static create(url: string): ApiService {
     return new ApiService(url);
@@ -14,7 +16,7 @@ class ApiService {
     });
   }
 
-  public getOrders(): Promise<AxiosResponse<any>> {
+  public getOrders(): Promise<AxiosResponse<OrderItem>> {
     const orders = this.instance.get('/order');
     return orders;
   }
