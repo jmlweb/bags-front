@@ -17,3 +17,14 @@ export type ViewProps = Omit<Props, 'bagsCount'> & {
   loading: boolean;
   saved: boolean;
 };
+
+export type FooterProps = {
+  bagsValue: number;
+  minBags: number;
+  maxBags: number;
+  loading: boolean;
+  saved: boolean;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (e: ChangeEvent<HTMLInputElement>) => void;
+  buttonDefaultText: string;
+};

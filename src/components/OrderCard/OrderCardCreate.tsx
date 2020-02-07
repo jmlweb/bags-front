@@ -1,44 +1,38 @@
-import React, { FC, FormEvent } from 'react';
-import styled from '@xstyled/styled-components';
+import React, { FormEvent, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
-import { Props } from './typings';
 import OrderCardFooter from './OrderCardFooter';
 import { minBags, maxBags } from './minMaxBags';
 import useBagsFields from './useBagsField';
 import { useApi } from '../../api';
 import Card from '../Card';
+import OrderCardUserSelector from './OrderCardUserSelector';
 
-const STitle = styled.h2`
-  color: primaryTinted;
-  margin: 0;
-`;
-
-const SSubtitle = styled.p`
-  margin: 1 0 0;
-`;
-
-const OrderCard: FC<Props> = ({ userEmail, userName, orderId, bagsCount }) => {
+const OrderCard = () => {
   const { service, makeRequest, idle, data } = useApi();
+  const [user, setUser] = useState('');
   const { bagsValue, handleChange, handleBlur } = useBagsFields({
-    bagsCount,
+    bagsCount: 1,
     maxBags,
     minBags,
   });
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     makeRequest(
-      service.updateOrder(orderId, {
+      service.createOrder({
+        user,
         bagsCount: bagsValue,
       }),
     );
   };
   const saved = Boolean(data);
+
+  if (saved) {
+    return <Redirect to="/order" />;
+  }
   return (
     <Card as="form" onSubmit={handleSubmit}>
-      <STitle>{userName}</STitle>
-      <SSubtitle>
-        <a href={`mailto:${userEmail}`}>{userEmail}</a>
-      </SSubtitle>
+      <OrderCardUserSelector value={user} setValue={setUser} />
       <OrderCardFooter
         bagsValue={bagsValue}
         minBags={minBags}
@@ -47,7 +41,7 @@ const OrderCard: FC<Props> = ({ userEmail, userName, orderId, bagsCount }) => {
         handleBlur={handleBlur}
         saved={saved}
         loading={!idle}
-        buttonDefaultText="Update"
+        buttonDefaultText="Create"
       />
     </Card>
   );

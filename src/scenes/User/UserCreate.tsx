@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { CardGridLayout } from '../../layouts';
-import { OrderCardCreate } from '../../components';
+import { UserCardCreate } from '../../components';
 
 const UserList = () => {
   return (
     <CardGridLayout>
-      <OrderCardCreate />
+      <UserCardCreate />
     </CardGridLayout>
   );
 };
