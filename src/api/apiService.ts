@@ -21,7 +21,7 @@ class ApiService {
     });
   }
 
-  public getUsers(): Promise<AxiosResponse<UserItem>> {
+  public getUsers(): Promise<AxiosResponse<UserItem[]>> {
     return this.instance.get('/user');
   }
 
@@ -36,7 +36,7 @@ class ApiService {
     return this.instance.put(`/user/${userId}`, payload);
   }
 
-  public getOrders(): Promise<AxiosResponse<OrderItem>> {
+  public getOrders(): Promise<AxiosResponse<OrderItem[]>> {
     return this.instance.get('/order');
   }
 
