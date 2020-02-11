@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from 'react';
+import React, { memo, FC, FormEvent } from 'react';
 import styled from '@xstyled/styled-components';
 
 import { Props } from './typings';
@@ -53,4 +53,4 @@ const OrderCard: FC<Props> = ({ userEmail, userName, orderId, bagsCount }) => {
   );
 };
 
-export default OrderCard;
+export default memo(OrderCard);
