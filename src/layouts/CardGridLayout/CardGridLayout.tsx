@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import styled from '@xstyled/styled-components';
 
 export interface Props {
@@ -11,6 +11,4 @@ const SGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 `;
 
-const CardGridLayout: FC<Props> = ({ children }) => <SGrid>{children}</SGrid>;
-
-export default CardGridLayout;
+export default SGrid;

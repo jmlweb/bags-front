@@ -57,6 +57,7 @@ const OrderCardFooter: FC<FooterProps> = ({
         value={bagsValue}
         onChange={handleChange}
         onBlur={handleBlur}
+        data-testid="bagsInput"
       />{' '}
       <span role="img" aria-label="bags emoji">
         🧳
