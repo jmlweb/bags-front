@@ -77,8 +77,12 @@ class ApiService {
   }
 
   public getOrders(): Promise<AxiosResponse<OrderItem[]>> {
-    return Promise.resolve({
-      data: this.orders,
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          data: this.orders,
+        });
+      }, 500);
     });
   }
 
